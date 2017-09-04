@@ -69,12 +69,14 @@ if (isset($_POST['btn-login'])) {
      	<hr />
         
         <div class="form-group">
-            <button type="submit" class="btn btn-default" name="btn-login" id="btn-login">
+           
+            <a href="registro.php" class="btn btn-default">
+            <span class="glyphicon glyphicon-pencil"></span> &nbsp;Registro
+            </a>
+            
+            <button type="submit" class="btn btn-default" name="btn-login" id="btn-login" style="float:right;">
     		<span class="glyphicon glyphicon-log-in"></span> &nbsp; Entrar
 			</button> 
-            
-            <a href="registro.php" class="btn btn-default" style="float:right;">Registro</a>
-            
         </div>  
         
         
