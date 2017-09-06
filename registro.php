@@ -61,7 +61,6 @@
 
  <div class="container">
      
-        
        <form class="form-signin" method="post" id="register-form">
       
         <h2 class="form-signin-heading">OLABIDE IKASTOLA - Registro</h2><hr />
@@ -88,9 +87,9 @@
       <hr />
         
         <div class="form-group">
-            <button type="submit" class="btn btn-default" name="btn-registro">
-      <span class="glyphicon glyphicon-log-in"></span> &nbsp; Registro
-   </button> 
+        	<button type="submit" class="btn btn-default" name="btn-registro">
+      			<span class="glyphicon glyphicon-log-in"></span> &nbsp; Registro
+   		</button> 
             <a href="index.php" class="btn btn-default" style="float:right;">Volver a inicio</a>
         </div> 
       

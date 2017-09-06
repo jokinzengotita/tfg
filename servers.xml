@@ -8,11 +8,16 @@
 	<server id="1">
 		<name>Router SSH</name>
 		<host>192.168.1.1</host>
-		<port>22</port>
+		<port>80</port>
 	</server>
 	<server id="2">
 		<name>XML Add Test</name>
 		<host>127.0.0.1</host>
 		<port>1337</port>
+	</server>
+	<server id="3">
+		<name>UNIR</name>
+		<host>www.unir.net</host>
+		<port>443</port>
 	</server>
 </servers>

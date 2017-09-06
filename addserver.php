@@ -4,30 +4,31 @@ include_once 'dbconnect.php';
 
 
 if (!isset($_SESSION['userSession'])) {
-	header("Location: home.php");
+	header("Location: addserver.php");
 }
 
 $query = $DBcon->query("SELECT * FROM usuarios WHERE idUsuario=".$_SESSION['userSession']);
+
 $userRow=$query->fetch_array();
 
 	if(isset($_POST['btn-add'])) {
- 
+ 		
  		$hname = strip_tags($_POST['name']);
  		$haddr = strip_tags($_POST['host']);
  		$hport = strip_tags($_POST['port']);
  
- 		$hname = $DBcon->real_escape_string($uname);
- 		$haddr = $DBcon->real_escape_string($email);
- 		$hport = $DBcon->real_escape_string($upass);
+ 		$hname = $DBcon->real_escape_string($hname);
+ 		$haddr = $DBcon->real_escape_string($haddr);
+ 		$hport = $DBcon->real_escape_string($hport);
  		
- 		$check_host = $DBcon->query("SELECT host FROM servidores WHERE addrHost='$haddr'");
+ 		$check_host = $DBcon->query("SELECT * FROM servers WHERE addrHost='$haddr'");
  		$count=$check_host->num_rows;
  
  		if ($count==0) {
   
-  			$query = "INSERT INTO servidores(nombreHost,addrHost,puertoHost) VALUES('$hname','$haddr','$hport')";
+  			$query2 = "INSERT INTO servers (nombreHost,addrHost,puertoHost) VALUES('$hname','$haddr','$hport')";
 
-  			if ($DBcon->query($query)) {
+  			if ($DBcon->query($query2)) {
    				$msg = "<div class='alert alert-success'>
       			<span class='glyphicon glyphicon-info-sign'></span> &nbsp; Registro realizado correctamente
      			</div>";
@@ -44,7 +45,7 @@ $userRow=$query->fetch_array();
     		</div>";
    		}
  
- 		$DBcon->close();
+ 		//$DBcon2->close();
 	}
 
 ?>
@@ -80,29 +81,32 @@ $userRow=$query->fetch_array();
     
 <div class="container" style="margin-top:150px;text-align:center;font-family:Verdana, Geneva, sans-serif;font-size:35px;">
 
-
        <form class="form-signin" method="post" id="add-server-form">
       
         <h2 class="form-signin-heading">Añadir servidor</h2><hr />
-          
+	<?php
+		if (isset($msg)) {
+		echo $msg;
+		}
+	?>
        	<div class="form-group">
-			<input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required />
-		</div>
+	<input type="text" class="form-control" name="name" placeholder="Nombre" required />
+	</div>
         
         <div class="form-group">
-			<input type="text" class="form-control" id="host" name="host" placeholder="Dominio / IP" required />
-		</div>
+	<input type="text" class="form-control" name="host" placeholder="Dominio / IP" required />
+	</div>
         
         <div class="form-group">
-			<input type="text" class="form-control" id="port" name="port" placeholder="Puerto" required />
-		</div>
+	<input type="text" class="form-control" name="port" placeholder="Puerto" required />
+	</div>
         
       <hr />
         
         <div class="form-group">
-            <button type="submit" class="btn btn-default" id="btn-add">
+		<button type="submit" class="btn btn-default" name="btn-add">
       			<span class="glyphicon glyphicon-plus"></span> &nbsp; Añadir
-   			</button> 
+   		</button> 
         </div> 
       
       </form>
