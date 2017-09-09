@@ -69,7 +69,7 @@ $userRow=$query->fetch_array();
           <ul class="nav navbar-nav">
             <li><a href="home.php">Inicio</a></li>
             <li class="active"> <a href="addserver.php">Añadir nuevo dispositivo</a></li>
-            <li><a href="#">Eliminar dispositivo</a></li>
+            <li><a href="removeserver.php">Eliminar dispositivo</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; <?php echo $userRow['nombreUsuario']; ?></a></li>

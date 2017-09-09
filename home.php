@@ -32,7 +32,7 @@ $userRow=$query->fetch_array();
           <ul class="nav navbar-nav">
             <li class="active"><a href="home.php">Inicio</a></li>
             <li><a href="addserver.php">Añadir nuevo dispositivo</a></li>
-            <li><a href="#">Eliminar dispositivo</a></li>
+            <li><a href="removeserver.php">Eliminar dispositivo</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; <?php echo $userRow['nombreUsuario']; ?></a></li>
@@ -78,26 +78,26 @@ function listar()
 	$query = $DBcon->query($sql);
 		while($server = mysqli_fetch_array($query)){
 			echo "<tr>";
-			echo "<td>".$server['nombreHost']."</td>";
+			echo "<td class='text-center'>".$server['nombreHost']."</td>";
 			
 			if(filter_var($server->host, FILTER_VALIDATE_IP))
 			{
-				echo "<td class=\"text-center\">N/A</td><td class=\"text-center\">aaa".$server['addrHost']."</td>";	
+				echo "<td class='text-center'>N/A</td><td class='text-center'>".$server['addrHost']."</td>";	
 			}
 			else
 			{
-				echo "<td class=\"text-center\">".$server['addrHost']."</td><td class=\"text-center\">".gethostbyname($server['addrHost'])."</td>";
+				echo "<td class='text-center'>".$server['addrHost']."</td><td class='text-center'>".gethostbyname($server['addrHost'])."</td>";
 			}
 			
-			echo "<td class=\"text-center\">".$server['puertoHost']."</td>";
+			echo "<td class='text-center'>".$server['puertoHost']."</td>";
 			
 			if (getStatus((string)$server['addrHost'], (string)$server['puertoHost']))
 			{
-				echo "<td class=\"text-center\"><span class=\"label label-success\">Online</span></td>";
+				echo "<td class='text-center'><span class='label label-success'>Online</span></td>";
 			}
 			else 
 			{
-				echo "<td class=\"text-center\"><span class=\"label label-danger\">Offline</span></td>";
+				echo "<td class='text-center'><span class='label label-danger'>Offline</span></td>";
 			}
 			echo "</tr>";
 		}
