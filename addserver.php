@@ -21,7 +21,7 @@ $userRow=$query->fetch_array();
  		$haddr = $DBcon->real_escape_string($haddr);
  		$hport = $DBcon->real_escape_string($hport);
  		
- 		$check_host = $DBcon->query("SELECT * FROM servers WHERE addrHost='$haddr'");
+ 		$check_host = $DBcon->query("SELECT * FROM servers WHERE addrHost='$haddr' AND puertoHost='$hport'");
  		$count=$check_host->num_rows;
  
  		if ($count==0) {
@@ -30,11 +30,11 @@ $userRow=$query->fetch_array();
 
   			if ($DBcon->query($query2)) {
    				$msg = "<div class='alert alert-success'>
-      			<span class='glyphicon glyphicon-info-sign'></span> &nbsp; Registro realizado correctamente
+      			<span class='glyphicon glyphicon-info-sign'></span> &nbsp; Servidor añadido
      			</div>";
   			}else {
    				$msg = "<div class='alert alert-danger'>
-      			<span class='glyphicon glyphicon-info-sign'></span> &nbsp; Error en el registro 
+      			<span class='glyphicon glyphicon-info-sign'></span> &nbsp; Error 
      			</div>";
   			}
   
@@ -61,8 +61,8 @@ $userRow=$query->fetch_array();
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
-<script src="bootstrap/js/jquery.js" type="text/javascript"></script>
-<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!--<script src="bootstrap/js/jquery.js" type="text/javascript"></script>
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>-->
 <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div id="navbar" class="navbar-collapse collapse">

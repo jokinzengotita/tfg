@@ -1,7 +1,7 @@
 <?php
 	
 	$DBhost = "localhost";
-	$DBuser = "root";
+	$DBuser = "jokin";
 	$DBpass = "U08123419";
 	$DBname = "dbtfg";
 	

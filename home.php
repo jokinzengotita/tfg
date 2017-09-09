@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include 'dbconnect.php';
 
 
 if (!isset($_SESSION['userSession'])) {
@@ -9,7 +9,7 @@ if (!isset($_SESSION['userSession'])) {
 
 $query = $DBcon->query("SELECT * FROM usuarios WHERE idUsuario=".$_SESSION['userSession']);
 $userRow=$query->fetch_array();
-$DBcon->close();
+//$DBcon->close();
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -43,7 +43,6 @@ $DBcon->close();
     </nav>
 
 <div class="container" style="margin-top:150px;text-align:center;font-family:Verdana, Geneva, sans-serif;font-size:35px;">
-
     
 	<h1>Estado de los servidores</h1>
 	<br/>
@@ -55,7 +54,9 @@ $DBcon->close();
 			<th class="text-center">Puerto</th>
 			<th class="text-center">Estado</th>
 		</tr>
-                <?php parser(); ?>
+                <?php 
+                	listar(); 
+                ?>
 	</table>
 </div>
 </body>
@@ -69,39 +70,36 @@ function getStatus($ip, $port)
 	else return true;
 }
 
-function parser()
+
+function listar()
 {
-	
-	$file = "servers.xml";
-	
-	$servers = simplexml_load_file("servers.xml");
-	foreach ($servers as $server)
-	{
-		echo "<tr>";
-		echo "<td>".$server->name."</td>";
-		
-		if(filter_var($server->host, FILTER_VALIDATE_IP))
-		{
-			echo "<td class=\"text-center\">N/A</td><td class=\"text-center\">".$server->host."</td>";	
+	include 'dbconnect.php';
+	$sql = 'SELECT * FROM servers';
+	$query = $DBcon->query($sql);
+		while($server = mysqli_fetch_array($query)){
+			echo "<tr>";
+			echo "<td>".$server['nombreHost']."</td>";
+			
+			if(filter_var($server->host, FILTER_VALIDATE_IP))
+			{
+				echo "<td class=\"text-center\">N/A</td><td class=\"text-center\">aaa".$server['addrHost']."</td>";	
+			}
+			else
+			{
+				echo "<td class=\"text-center\">".$server['addrHost']."</td><td class=\"text-center\">".gethostbyname($server['addrHost'])."</td>";
+			}
+			
+			echo "<td class=\"text-center\">".$server['puertoHost']."</td>";
+			
+			if (getStatus((string)$server['addrHost'], (string)$server['puertoHost']))
+			{
+				echo "<td class=\"text-center\"><span class=\"label label-success\">Online</span></td>";
+			}
+			else 
+			{
+				echo "<td class=\"text-center\"><span class=\"label label-danger\">Offline</span></td>";
+			}
+			echo "</tr>";
 		}
-		else
-		{
-			echo "<td class=\"text-center\">".$server->host."</td><td class=\"text-center\">".gethostbyname($server->host)."</td>";
-		}
-
-		echo "<td class=\"text-center\">".$server->port."</td>";
-
-		if (getStatus((string)$server->host, (string)$server->port))
-		{
-			echo "<td class=\"text-center\"><span class=\"label label-success\">Online</span></td>";
-		}
-		else 
-		{
-			echo "<td class=\"text-center\"><span class=\"label label-danger\">Offline</span></td>";
-		}
-		echo "</tr>";
-	}
+	echo "</table>";
 }
-	
-	
-
